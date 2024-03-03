@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Video Playlist</title>
+  <link rel="stylesheet" href="styles.css">
+  <style>
+  *{
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+}
+.video-container {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap:1rem;
+  align-items: flex-start;
+  padding:1rem 5%;
+    }
+.video-container .video-player{
+  background-color: #eee;
+  border-radius: 5px;
+  padding:10px ;
+}
+.video-container .video-player iframe{
+  width:100%;
+  border-radius:5px;
+}
+.video-container .video-list{
+  background: #eee;
+  border-radius: 5px;
+  height: 370px;
+  overflow-y: scroll;
+}
+.video-container .video-list::-webkit-scrollbar{
+  width: 7px;
+}
+.video-container .video-list::-webkit-scrollbar-track{
+  background: #ccc;
+  border-radius: 50px;
+}
+.video-container .video-list::-webkit-scrollbar-thumb{
+  background: #666;
+  border-radius: 50px;
+}
+.video-container .video-list .video-item img{
+  width: 100px;
+  height: 50px;
+  border-radius: 3px;
+}
+.video-container .video-list .video-item{
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  background:#f7f7f7;
+  border-radius: 3px;
+  margin:10px;
+  padding: 5px;
+  border: 1px solid rgba(0,0,0,.1);
+  cursor: pointer;
+}
+.video-container .video-list .viddeo-item:hover{
+  background: #eee;
+}
+.video-container .video-list .video-item.active{
+  background: #cdcd;
+}
+    .video-description {
+      margin-top: 10px;
+    }
+@media (max-width:960px){
+.video-container{
+  grid-template-columns: 1.5fr 1fr;
+  padding:2rem;
+}
+}
+@media (max-width: 468px){
+.video-container{
+  grid-template-columns: 1fr;
+}
+}
+  </style>
+</head>
+<body>
+  <div class="video-container">
+    <div class="video-player">
+      <iframe id="videoPlayer" width="560" height="315" src="https://www.youtube.com/embed/z3Y5gJWmVVU" frameborder="0" allowfullscreen></iframe>
+      <div class="video-description">This is the tutorial video</div>
+    </div>
+    <div class="video-list">
+      <div class="video-item active" data-video-id="z3Y5gJWmVVU" data-video-description="This is the tutorial video">
+        <img src="./video/image3.jpeg" alt="Video 1">
+        <h3>Video 1</h3>
+      </div>
+      <div class="video-item" data-video-id="Ji1EI-itIs4" data-video-description="This is the Video 2">
+        <img src="./video/image3.jpeg" alt="Video 2">
+        <h3>Video 2</h3>
+      </div>
+      <div class="video-item" data-video-id="Ji1EI-itIs4" data-video-description="Description for Video 3">
+        <img src="./video/image3.jpeg" alt="Video 3">
+        <h3>Video 3</h3>
+      </div>
+      <div class="video-item" data-video-id="Ji1EI-itIs4" data-video-description="Description for Video 4">
+        <img src="./video/image3.jpeg" alt="Video 2">
+        <h3>Video 4</h3>
+      </div>
+            <div class="video-item" data-video-id="Ji1EI-itIs4" data-video-description="Description for Video 5">
+        <img src="./video/image3.jpeg" alt="Video 2">
+        <h3>Video 5</h3>
+      </div>
+       <div class="video-item" data-video-id="Ji1EI-itIs4" data-video-description="Description for Video 6">
+        <img src="./video/image3.jpeg" alt="Video 2">
+        <h3>Video 6</h3>
+      </div>
+      <!-- Add more video items as needed -->
+    </div>
+    
+  </div>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const videoItems = document.querySelectorAll('.video-item');
+      const videoDescription = document.querySelector('.video-description');
+
+      videoItems.forEach(item => {
+        item.addEventListener('click', function() {
+          const videoId = item.getAttribute('data-video-id');
+          const videoUrl = `https://www.youtube.com/embed/${videoId}`;
+          const description = item.getAttribute('data-video-description');
+
+          document.getElementById('videoPlayer').src = videoUrl;
+          videoDescription.textContent = description;
+
+          // Remove 'active' class from all items
+          videoItems.forEach(item => {
+            item.classList.remove('active');
+          });
+
+          // Add 'active' class to the clicked item
+          item.classList.add('active');
+        });
+      });
+    });
+  </script>
+</body>
+</html>
